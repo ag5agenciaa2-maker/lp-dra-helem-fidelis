@@ -1,0 +1,260 @@
+/* =====================================================================
+   Dra Helem Fidélis — script.js
+   JavaScript Vanilla ES6 — sem dependências externas
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    /* ---------------------------------------------------------------
+       1. REVEAL ao rolar (IntersectionObserver)
+    --------------------------------------------------------------- */
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+      reveals.forEach(function (el) { io.observe(el); });
+      // segurança: garante visibilidade mesmo se o observer falhar
+      setTimeout(function () { reveals.forEach(function (el) { el.classList.add('visible'); }); }, 3500);
+    } else {
+      reveals.forEach(function (el) { el.classList.add('visible'); });
+    }
+
+    /* ---------------------------------------------------------------
+       2. CONTADORES animados
+    --------------------------------------------------------------- */
+    var counters = document.querySelectorAll('[data-count]');
+    function runCount(el) {
+      if (el.dataset.counted) return;
+      el.dataset.counted = '1';
+      var raw = el.getAttribute('data-count');
+      var target = parseFloat(raw);
+      var dec = raw.indexOf('.') > -1 ? 1 : 0;
+      var dur = 1500, t0 = performance.now();
+      function step(t) {
+        var p = Math.min((t - t0) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * eased).toFixed(dec).replace('.', ',');
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target.toFixed(dec).replace('.', ',');
+      }
+      requestAnimationFrame(step);
+    }
+    if ('IntersectionObserver' in window) {
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(function (el) { cio.observe(el); });
+    } else {
+      counters.forEach(runCount);
+    }
+
+    /* ---------------------------------------------------------------
+       3. NAVBAR — estado ao rolar + menu mobile
+    --------------------------------------------------------------- */
+    var nav = document.getElementById('nav');
+    var burger = document.getElementById('burger');
+    var drawer = document.getElementById('drawer');
+    var drawerOverlay = document.getElementById('drawerOverlay');
+    var drawerClose = document.getElementById('drawerClose');
+
+    function onScroll() {
+      if (window.scrollY > 40) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    function openDrawer() {
+      if (!drawer) return;
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      if (drawerOverlay) { drawerOverlay.hidden = false; drawerOverlay.classList.add('open'); }
+      if (burger) burger.setAttribute('aria-expanded', 'true');
+      nav.classList.add('open');
+      document.body.classList.add('no-scroll');
+    }
+    function closeDrawer() {
+      if (!drawer) return;
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      if (drawerOverlay) {
+        drawerOverlay.classList.remove('open');
+        setTimeout(function () { drawerOverlay.hidden = true; }, 450);
+      }
+      if (burger) burger.setAttribute('aria-expanded', 'false');
+      nav.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+    }
+
+    if (burger) {
+      burger.addEventListener('click', function () {
+        if (drawer && drawer.classList.contains('open')) closeDrawer();
+        else openDrawer();
+      });
+    }
+    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+    if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+    if (drawer) {
+      drawer.querySelectorAll('[data-close]').forEach(function (a) {
+        a.addEventListener('click', closeDrawer);
+      });
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && drawer && drawer.classList.contains('open')) closeDrawer();
+    });
+
+    /* ---------------------------------------------------------------
+       4. CARROSSEL de depoimentos (fade + auto-rotate)
+    --------------------------------------------------------------- */
+    var track = document.getElementById('carouselTrack');
+    if (track) {
+      var slides = Array.prototype.slice.call(track.querySelectorAll('.testimonial'));
+      var dotsWrap = document.getElementById('dots');
+      var prevBtn = document.getElementById('prevBtn');
+      var nextBtn = document.getElementById('nextBtn');
+      var current = 0;
+      var timer = null;
+
+      // cria os dots dinamicamente
+      var dots = slides.map(function (_, i) {
+        var b = document.createElement('button');
+        b.className = 'dot' + (i === 0 ? ' active' : '');
+        b.setAttribute('aria-label', 'Ir para depoimento ' + (i + 1));
+        b.addEventListener('click', function () { show(i); restart(); });
+        dotsWrap.appendChild(b);
+        return b;
+      });
+
+      function show(i) {
+        current = (i + slides.length) % slides.length;
+        slides.forEach(function (s, idx) { s.classList.toggle('active', idx === current); });
+        dots.forEach(function (d, idx) { d.classList.toggle('active', idx === current); });
+      }
+      function restart() {
+        clearInterval(timer);
+        timer = setInterval(function () { show(current + 1); }, 6000);
+      }
+      if (prevBtn) prevBtn.addEventListener('click', function () { show(current - 1); restart(); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { show(current + 1); restart(); });
+
+      // pausa ao passar o mouse
+      track.addEventListener('mouseenter', function () { clearInterval(timer); });
+      track.addEventListener('mouseleave', restart);
+
+      show(0);
+      restart();
+    }
+
+    /* ---------------------------------------------------------------
+       5. FAQ — acordeão
+    --------------------------------------------------------------- */
+    var faqList = document.getElementById('faqList');
+    if (faqList) {
+      var items = Array.prototype.slice.call(faqList.querySelectorAll('.faq-item'));
+      items.forEach(function (item) {
+        var btn = item.querySelector('.faq-item__btn');
+        btn.addEventListener('click', function () {
+          var wasOpen = item.classList.contains('open');
+          items.forEach(function (it) {
+            it.classList.remove('open');
+            it.querySelector('.faq-item__btn').setAttribute('aria-expanded', 'false');
+          });
+          if (!wasOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    }
+
+    /* ---------------------------------------------------------------
+       6. FORMULÁRIO — validação + envio via WhatsApp
+    --------------------------------------------------------------- */
+    var form = document.getElementById('contactForm');
+    if (form) {
+      var formOk = document.getElementById('formOk');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var nome = form.nome, email = form.email, tel = form.tel, servico = form.servico, mensagem = form.mensagem;
+
+        function mark(id, invalid) {
+          document.getElementById(id).classList.toggle('invalid', invalid);
+        }
+        var digits = (tel.value || '').replace(/\D/g, '');
+        var badNome = nome.value.trim().length < 2;
+        var badEmail = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+        var badTel = digits.length < 10;
+        var badServico = !servico.value;
+
+        mark('field-nome', badNome);
+        mark('field-email', badEmail);
+        mark('field-tel', badTel);
+        mark('field-servico', badServico);
+
+        if (badNome || badEmail || badTel || badServico) {
+          formOk.classList.remove('show');
+          return;
+        }
+
+        var linhas = [
+          'Olá, me chamo ' + nome.value.trim() + ', vim através do site e gostaria de uma informação.',
+          '',
+          '- E-mail: ' + email.value.trim(),
+          '- Telefone: ' + tel.value.trim(),
+          '- Tratamento: ' + servico.value
+        ];
+        if (mensagem.value.trim()) linhas.push('- Mensagem: ' + mensagem.value.trim());
+
+        window.open('https://wa.me/5521979937234?text=' + encodeURIComponent(linhas.join('\n')), '_blank');
+        formOk.classList.add('show');
+        form.reset();
+      });
+
+      // limpa o estado de erro ao digitar
+      form.querySelectorAll('input, select').forEach(function (el) {
+        el.addEventListener('input', function () {
+          var field = el.closest('.field');
+          if (field) field.classList.remove('invalid');
+        });
+      });
+    }
+
+    /* ---------------------------------------------------------------
+       6. WhatsApp — balão de mensagem premium (typing + glassmorphism)
+    --------------------------------------------------------------- */
+    var waBubble = document.getElementById('waBubble');
+    if (waBubble) {
+      var waTyping = document.getElementById('waTyping');
+      var waMsg = document.getElementById('waMsg');
+      var waClose = document.getElementById('waBubbleClose');
+      var waBtn = document.getElementById('waMainBtn');
+      var waDismissed = false;
+
+      setTimeout(function () {
+        if (waDismissed) return;
+        waBubble.classList.add('show');
+        // simula digitação por ~2,4s antes de revelar a mensagem
+        setTimeout(function () {
+          if (waDismissed) return;
+          if (waTyping) waTyping.style.display = 'none';
+          if (waMsg) waMsg.style.display = 'block';
+        }, 2400);
+      }, 5000);
+
+      function waHide() { waBubble.classList.remove('show'); waDismissed = true; }
+      if (waClose) waClose.addEventListener('click', function (e) { e.preventDefault(); waHide(); });
+      if (waBtn) waBtn.addEventListener('click', waHide);
+    }
+
+  });
+})();
