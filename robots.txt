@@ -1,0 +1,29 @@
+# robots.txt — Dra Helem Fidélis Odontologia
+# TROQUE o domínio abaixo pelo domínio final antes de publicar.
+
+User-agent: *
+Allow: /
+
+# Crawlers de IA (GEO — visibilidade em ChatGPT, Claude, Perplexity, Gemini)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.drahelemfidelis.ag5agencia.site/sitemap.xml

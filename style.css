@@ -656,6 +656,7 @@ body.no-scroll{overflow:hidden}
 .footer__brand p{font-size:14.5px;line-height:1.65;color:#C9B9A4;max-width:340px;margin:0 0 22px}
 .social{display:flex;gap:12px}
 .social a{width:42px;height:42px;border-radius:50%;border:1px solid rgba(232,220,200,.25);display:flex;align-items:center;justify-content:center;color:var(--areia);text-decoration:none;font-size:13px;font-weight:600;transition:all .25s}
+.social a svg{width:20px;height:20px}
 .social a:hover{background:var(--bronze);border-color:var(--bronze);color:#fff;transform:translateY(-2px)}
 .footer__col-title{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--dourado);margin-bottom:18px}
 .footer__col-links{display:flex;flex-direction:column;gap:12px}
@@ -755,7 +756,7 @@ body.no-scroll{overflow:hidden}
   .hero__media{margin:0 auto}
   .hero__scroll{display:none}
   .footer__grid{grid-template-columns:1fr 1fr}
-  .ig-reels__grid{grid-template-columns:repeat(2,1fr)}
+  .ig-reels__grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
   .ds__grid{grid-template-columns:1fr;gap:40px}
   .ds__media{max-width:330px;margin:0 auto;aspect-ratio:9/16}
 }
@@ -808,7 +809,8 @@ body.no-scroll{overflow:hidden}
   .testimonial__person{flex-wrap:wrap;justify-content:center;gap:10px 12px}
   /* reels do Instagram — uma coluna no celular */
   .ig-reels{margin-top:60px}
-  .ig-reels__grid{grid-template-columns:1fr;max-width:380px;margin:0 auto}
+  .ig-reels__grid{grid-template-columns:1fr;gap:16px;max-width:360px;margin:0 auto}
+  .ig-embed iframe{min-height:500px}
 }
 
 @media (prefers-reduced-motion:reduce){
