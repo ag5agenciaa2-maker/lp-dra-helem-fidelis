@@ -168,6 +168,7 @@ body.no-scroll{overflow:hidden}
 .hero__media{position:relative;justify-self:center;width:100%;max-width:430px;aspect-ratio:3/4}
 .hero__media-frame{position:absolute;inset:20px -20px -20px 20px;border:1px solid rgba(201,168,106,.5);border-radius:24px;z-index:0}
 .hero__photo{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;object-position:center bottom;border-radius:24px;box-shadow:0 30px 64px rgba(74,59,46,.2)}
+.hero__video{object-position:center;background:var(--marfim)}
 @keyframes pulse-gold{0%{box-shadow:0 0 0 0 rgba(201,168,106,.55)}70%{box-shadow:0 0 0 8px rgba(201,168,106,0)}100%{box-shadow:0 0 0 0 rgba(201,168,106,0)}}
 @keyframes hero-underline{to{transform:scaleX(1)}}
 @keyframes hero-shine{from{left:-130%}to{left:130%}}
@@ -385,15 +386,34 @@ body.no-scroll{overflow:hidden}
 .about__grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:72px;align-items:center;position:relative;z-index:1}
 
 /* foto + molduras + selos */
-.about__photo{position:relative}
-.about__frame{position:absolute;inset:-16px -16px 16px 16px;border:1px solid rgba(201,168,106,.5);border-radius:26px;z-index:0;pointer-events:none}
-.about__photo img{position:relative;z-index:1;width:100%;border-radius:24px;box-shadow:0 34px 70px rgba(0,0,0,.4)}
-.about__badge{position:absolute;z-index:2;bottom:-22px;right:-18px;
-  background:linear-gradient(160deg,var(--offwhite),var(--marfim));color:var(--cacau);
-  border-radius:18px;padding:16px 22px;box-shadow:0 20px 44px rgba(0,0,0,.34);text-align:center;
+.about__photo{position:relative;min-width:0}
+/* brilho dourado premium por trás da parede de galeria */
+.about__glint{position:absolute;z-index:0;inset:-6% -8% -4% -8%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(60% 56% at 52% 36%,rgba(201,168,106,.30),transparent 70%);filter:blur(22px)}
+/* ---- galeria minimalista (duas fotos limpas, base compartilhada, muito respiro) ---- */
+.about__gallery{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:center;gap:28px}
+.gframe{position:relative;margin:0;min-width:0;border-radius:20px;overflow:hidden;
+  box-shadow:0 30px 60px rgba(0,0,0,.4),0 8px 20px rgba(0,0,0,.22);
+  transition:transform .6s var(--ease)}
+/* fio dourado sutil — único detalhe decorativo */
+.gframe::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(201,168,106,.38)}
+.gframe img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;
+  transition:transform 1.2s var(--ease)}
+.gframe:hover img{transform:scale(1.05)}
+/* quadro principal — retrato (destaque) */
+.gframe--main{flex:0 1 55%;aspect-ratio:4/5}
+/* quadro secundário — foto do sofá (menor e discreto, mesma base) */
+.gframe--sec{flex:0 1 37%;aspect-ratio:4/4.5;margin-bottom:8%}
+/* selo de avaliação — pílula limpa e discreta */
+.about__badge{position:absolute;z-index:3;left:50%;bottom:-20px;transform:translateX(-50%);
+  display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  background:var(--offwhite);color:var(--cacau);
+  border-radius:40px;padding:11px 20px;box-shadow:0 16px 36px rgba(0,0,0,.3);
   border:1px solid rgba(201,168,106,.4)}
-.about__badge-num{font-family:var(--serif);font-size:32px;font-weight:700;line-height:1;margin-top:4px}
-.about__badge-sub{font-size:11px;font-weight:600;letter-spacing:.5px;color:var(--bronze)}
+.about__badge .stars{font-size:14px}
+.about__badge-txt{font-size:13.5px;color:var(--text-soft)}
+.about__badge-txt strong{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--cacau)}
 .about__chip{position:absolute;z-index:2;top:18px;left:-18px;display:flex;align-items:center;gap:11px;
   padding:11px 16px;border-radius:16px;color:var(--marfim);
   background:rgba(58,46,35,.66);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
@@ -800,7 +820,10 @@ body.no-scroll{overflow:hidden}
   .hero__badge{left:0}
   /* SOBRE — selos contidos e botão em largura total */
   .about__chip{left:0;top:12px}
-  .about__badge{right:0}
+  .about__badge{right:0;bottom:-14px;padding:12px 18px}
+  /* galeria — mais próxima e centrada no mobile */
+  .about__photo--gallery{max-width:430px;margin:0 auto}
+  .about__gallery{gap:16px}
   /* DEPOIMENTOS — card compacto e sem corte de texto */
   .reviews{padding:80px 0}
   .carousel{padding:0 16px}
