@@ -246,50 +246,50 @@ body.no-scroll{overflow:hidden}
 .services__head .section-title em{font-style:italic;color:var(--bronze)}
 .services__sub{margin:22px 0 0;font-size:16.5px;line-height:1.65;color:var(--text-soft);max-width:600px}
 
-/* ----- Cards premium de serviços ----- */
-.svc-list{display:flex;flex-direction:column;gap:16px}
-.svc-line{
-  position:relative;display:grid;grid-template-columns:auto auto 1fr auto;
-  gap:28px;align-items:center;padding:28px 32px;
-  background:var(--offwhite);border:1px solid rgba(74,59,46,.08);border-radius:22px;
-  box-shadow:0 8px 26px rgba(74,59,46,.05);overflow:hidden;
-  transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease);
-}
-/* barra dourada que cresce à esquerda no hover */
-.svc-line::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--dourado),var(--bronze));
-  transform:scaleY(0);transform-origin:top;transition:transform .45s var(--ease)}
-.svc-line:hover{transform:translateY(-4px);box-shadow:0 22px 54px rgba(74,59,46,.12);border-color:rgba(144,120,96,.28)}
-.svc-line:hover::before{transform:scaleY(1)}
-
-.svc-line__num{font-family:var(--serif);font-weight:500;font-style:italic;font-size:clamp(34px,4.4vw,54px);
-  line-height:.8;color:rgba(201,168,106,.42);min-width:70px;transition:color .45s var(--ease)}
-.svc-line:hover .svc-line__num{color:var(--dourado)}
-
-.svc-line__icon{display:inline-flex;align-items:center;justify-content:center;
-  width:60px;height:60px;border-radius:17px;color:var(--bronze);
-  background:linear-gradient(150deg,rgba(201,168,106,.16),rgba(201,168,106,.04));
-  border:1px solid rgba(201,168,106,.3);
-  transition:transform .45s var(--ease),color .45s var(--ease),background .45s var(--ease),border-color .45s var(--ease)}
-.svc-line__icon svg{width:30px;height:30px}
-.svc-line:hover .svc-line__icon{transform:scale(1.04) rotate(-3deg);color:var(--bronze-warm);
-  border-color:rgba(201,168,106,.55);
-  background:linear-gradient(150deg,rgba(201,168,106,.28),rgba(201,168,106,.08))}
-
-.svc-line__head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:7px}
-.svc-line__title{font-family:var(--serif);font-weight:600;font-size:clamp(23px,2.7vw,32px);
-  line-height:1.05;margin:0;color:var(--cacau)}
-.svc-line__tag{font-size:11px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;
-  color:var(--bronze);background:rgba(201,168,106,.12);border:1px solid rgba(201,168,106,.3);
-  padding:4px 12px;border-radius:30px}
-.svc-line__desc{font-size:15.5px;line-height:1.6;color:var(--text-soft);margin:0;max-width:620px}
-
-.svc-line__go{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
-  width:52px;height:52px;border-radius:50%;text-decoration:none;font-size:20px;
-  color:var(--bronze);border:1px solid rgba(201,168,106,.4);background:var(--marfim);
-  transition:background .35s var(--ease),color .35s var(--ease),transform .35s var(--ease)}
-.svc-line:hover .svc-line__go{border-color:var(--bronze)}
-.svc-line__go:hover{background:var(--bronze);color:var(--offwhite);border-color:var(--bronze);transform:translateX(3px)}
+/* ----- Cards editoriais de serviços (grid, sem imagem) ----- */
+.svc-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr;gap:24px;max-width:1120px;margin:0 auto}
+.svc-card{position:relative;overflow:hidden;display:block;text-decoration:none;color:inherit;
+  background:var(--offwhite);border:1px solid rgba(74,59,46,.09);border-radius:24px;padding:32px 30px;
+  box-shadow:0 14px 38px rgba(74,59,46,.07);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease)}
+.svc-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(74,59,46,.13);border-color:rgba(201,168,106,.35)}
+.svc-card:focus-visible{outline:2px solid var(--bronze);outline-offset:3px}
+/* número gigante — marca d'água editorial */
+.svc-card__num{position:absolute;top:-30px;right:4px;font-family:var(--serif);font-style:italic;font-weight:600;
+  font-size:clamp(120px,13vw,158px);line-height:1;color:rgba(201,168,106,.13);pointer-events:none;
+  transition:color .45s var(--ease)}
+.svc-card:hover .svc-card__num{color:rgba(201,168,106,.2)}
+/* ícone fino em dourado */
+.svc-card__icon{position:relative;display:inline-flex;color:var(--dourado);margin-bottom:18px;transition:transform .45s var(--ease)}
+.svc-card__icon svg{width:40px;height:40px}
+.svc-card:hover .svc-card__icon{transform:translateY(-2px)}
+/* fio dourado */
+.svc-card__divider{display:block;width:34px;height:2px;border-radius:4px;margin:0 0 16px;position:relative;
+  background:linear-gradient(90deg,var(--dourado),rgba(201,168,106,.15));transition:width .45s var(--ease)}
+.svc-card:hover .svc-card__divider{width:54px}
+.svc-card__tag{position:relative;display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--bronze);background:rgba(201,168,106,.12);border:1px solid rgba(201,168,106,.28);
+  padding:5px 12px;border-radius:30px;margin-bottom:13px}
+.svc-card__title{position:relative;font-family:var(--serif);font-weight:600;font-size:clamp(24px,2.3vw,28px);
+  line-height:1.08;margin:0 0 10px;color:var(--cacau);text-wrap:balance}
+.svc-card__desc{position:relative;font-size:14.5px;line-height:1.6;color:var(--text-soft);margin:0}
+/* 6º card — CTA em destaque (escuro) */
+.svc-card--cta{display:flex;flex-direction:column;align-items:flex-start;
+  background:linear-gradient(155deg,var(--cacau),#3a2e23 70%,#33281f);
+  border-color:rgba(201,168,106,.4);box-shadow:0 26px 54px rgba(58,46,35,.32)}
+.svc-card--cta::after{content:'';position:absolute;bottom:-125px;left:-100px;width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,106,.1),transparent 70%);pointer-events:none}
+.svc-card--cta:hover{border-color:rgba(201,168,106,.6);box-shadow:0 34px 66px rgba(58,46,35,.4)}
+.svc-card--cta .svc-card__icon{color:var(--dourado)}
+.svc-card--cta .svc-card__title{color:var(--offwhite)}
+.svc-card--cta .svc-card__desc{color:var(--areia);margin-top:12px}
+.svc-card__cta-btn{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;margin-top:auto;
+  text-decoration:none;font-size:14.5px;font-weight:600;color:var(--cacau);
+  background:linear-gradient(160deg,#e4cf98,var(--dourado));padding:13px 24px;border-radius:44px;
+  box-shadow:0 6px 16px rgba(58,46,35,.28);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.svc-card__cta-btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(58,46,35,.34)}
+.svc-card__cta-btn span{transition:transform .3s var(--ease)}
+.svc-card__cta-btn:hover span{transform:translateX(3px)}
 
 /* faixa de CTA */
 .svc-cta{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
@@ -849,6 +849,7 @@ body.no-scroll{overflow:hidden}
   .tech__grid,.about__grid{grid-template-columns:1fr;gap:44px}
   .contact__card{grid-template-columns:1fr}
   .about__photo{max-width:460px}
+  .svc-list{grid-template-columns:repeat(2,minmax(0,1fr));max-width:760px}
   /* SOBRE — no mobile a imagem entra entre a função e o texto "Para mim..." */
   .about__grid{gap:0}
   .about__body{display:contents}
@@ -911,12 +912,10 @@ body.no-scroll{overflow:hidden}
   .footer-legal-links{justify-content:flex-start!important}
   .footer-credits-right{text-align:left!important;white-space:normal!important}
   .services{padding:80px 0}
-  /* SERVIÇOS — lista empilha num ritmo limpo */
-  .svc-line{grid-template-columns:auto 1fr;column-gap:18px;row-gap:10px;
-    align-items:start;padding:24px 22px}
-  .svc-line__num{grid-row:1 / span 2;font-size:40px;min-width:52px}
-  .svc-line__icon{display:none}
-  .svc-line__go{display:none}
+  /* SERVIÇOS — cards editoriais em 1 coluna no mobile */
+  .svc-list{grid-template-columns:1fr;grid-auto-rows:auto;gap:18px;max-width:400px;margin:0 auto}
+  .svc-card{padding:28px 26px}
+  .svc-card__num{font-size:118px}
   .svc-cta{padding:30px 26px}
   .svc-cta__btn{width:100%;justify-content:center}
   /* demais procedimentos — compacto e centralizado no mobile */
