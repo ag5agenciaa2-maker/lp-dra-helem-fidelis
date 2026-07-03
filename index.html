@@ -221,6 +221,15 @@
         <span class="hero__media-scrim" aria-hidden="true"></span>
         <span class="hero__media-shine" aria-hidden="true"></span>
         <span class="hero__media-live" aria-hidden="true"><span class="hero__media-live-dot"></span>Dra. Helem Fidélis</span>
+        <div class="hero__vctrls">
+          <button class="hero__vbtn hero__vbtn--sound" type="button" aria-label="Ativar som">
+            <svg class="hero__ic-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M22 9l-6 6M16 9l6 6"/></svg>
+            <svg class="hero__ic-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          </button>
+          <button class="hero__vbtn hero__vbtn--expand" type="button" aria-label="Expandir vídeo em tela cheia">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -900,15 +909,30 @@
 <!-- ============ MODAL DE VÍDEO (LIGHTBOX PREMIUM) ============ -->
 <div class="vmodal" id="techVideoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Vídeo — Scanner intra-oral 3D">
   <div class="vmodal__overlay" data-vclose></div>
-  <button class="vmodal__close" type="button" data-vclose aria-label="Fechar vídeo">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-  </button>
   <div class="vmodal__dialog">
     <div class="vmodal__frame">
       <span class="vmodal__pill"><span class="vmodal__pill-dot" aria-hidden="true"></span>Scanner 3D · ao vivo</span>
       <video class="vmodal__video" src="https://assets.cdn.filesafe.space/7hzaWcGgawCV1WudlwA7/media/6a387b13f2131051b83e4af4.mp4" playsinline loop controls preload="none"></video>
+      <button class="vmodal__close" type="button" data-vclose aria-label="Fechar vídeo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
     </div>
     <span class="vmodal__cap">Scanner intra-oral 3D · Dra. Helem Fidélis</span>
+  </div>
+</div>
+
+<!-- Modal do vídeo da Hero -->
+<div class="vmodal" id="heroVideoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Vídeo de apresentação — Dra. Helem Fidélis">
+  <div class="vmodal__overlay" data-vclose></div>
+  <div class="vmodal__dialog">
+    <div class="vmodal__frame">
+      <span class="vmodal__pill vmodal__pill--gold"><span class="vmodal__pill-dot" aria-hidden="true"></span>Dra. Helem Fidélis</span>
+      <video class="vmodal__video" src="https://assets.cdn.filesafe.space/7hzaWcGgawCV1WudlwA7/media/6a387b0e1c5d711b35e29d25.mp4" poster="Assets/dra-helem-fidelis-dentista-retrato.webp" playsinline loop controls preload="none"></video>
+      <button class="vmodal__close" type="button" data-vclose aria-label="Fechar vídeo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <span class="vmodal__cap">Odontologia Estética · Reabilitação Oral · Paciência, RJ</span>
   </div>
 </div>
 

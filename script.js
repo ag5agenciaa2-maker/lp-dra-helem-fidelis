@@ -305,6 +305,69 @@
           if (e.key === 'Escape' || e.keyCode === 27) closeVModal();
         });
       }
+      /* Ao sair da seção: pausa o vídeo (se estiver tocando) e reinicia do zero */
+      if (techVideo && 'IntersectionObserver' in window) {
+        var techLeaveIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) {
+              if (!techVideo.paused) techVideo.pause();
+              try { techVideo.currentTime = 0; } catch (err) {}
+            }
+          });
+        }, { threshold: 0 });
+        techLeaveIO.observe(techVideoBox);
+      }
+    }
+
+    /* ---------------------------------------------------------------
+       8. VÍDEO Hero — som (mute/unmute) + expandir (tela cheia)
+    --------------------------------------------------------------- */
+    var heroStage = document.querySelector('.hero__media-stage');
+    if (heroStage) {
+      var heroVideo = heroStage.querySelector('video');
+      var heroSound = heroStage.querySelector('.hero__vbtn--sound');
+      var heroExpand = heroStage.querySelector('.hero__vbtn--expand');
+      if (heroVideo && heroSound) {
+        var heroSoundSync = function () {
+          heroStage.classList.toggle('sound-on', !heroVideo.muted);
+          heroSound.setAttribute('aria-label', heroVideo.muted ? 'Ativar som' : 'Desativar som');
+        };
+        heroSound.addEventListener('click', function () {
+          heroVideo.muted = !heroVideo.muted;
+          if (!heroVideo.muted) { var ps = heroVideo.play(); if (ps && ps.catch) ps.catch(function () {}); }
+          heroSoundSync();
+        });
+        heroVideo.addEventListener('volumechange', heroSoundSync);
+        heroSoundSync();
+      }
+      var heroModal = document.getElementById('heroVideoModal');
+      if (heroVideo && heroExpand && heroModal) {
+        var heroModalVideo = heroModal.querySelector('.vmodal__video');
+        var openHeroModal = function () {
+          heroModal.classList.add('open');
+          heroModal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          if (heroVideo.pause) heroVideo.pause();
+          if (heroModalVideo) {
+            var hp = heroModalVideo.play();
+            if (hp && hp.catch) hp.catch(function () { heroModalVideo.muted = true; heroModalVideo.play().catch(function () {}); });
+          }
+        };
+        var closeHeroModal = function () {
+          if (!heroModal.classList.contains('open')) return;
+          heroModal.classList.remove('open');
+          heroModal.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          if (heroModalVideo) heroModalVideo.pause();
+          if (heroVideo.play) { var hr = heroVideo.play(); if (hr && hr.catch) hr.catch(function () {}); }
+        };
+        heroExpand.addEventListener('click', openHeroModal);
+        var hcloseEls = heroModal.querySelectorAll('[data-vclose]');
+        for (var hi = 0; hi < hcloseEls.length; hi++) { hcloseEls[hi].addEventListener('click', closeHeroModal); }
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' || e.keyCode === 27) closeHeroModal();
+        });
+      }
     }
 
   });
