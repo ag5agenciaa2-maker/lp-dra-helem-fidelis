@@ -214,8 +214,14 @@
       </div>
     </div>
     <div class="hero__media reveal reveal--scale">
+      <span class="hero__media-glow" aria-hidden="true"></span>
       <span class="hero__media-frame" aria-hidden="true"></span>
-      <video class="hero__photo hero__video" src="https://assets.cdn.filesafe.space/7hzaWcGgawCV1WudlwA7/media/6a387b0e1c5d711b35e29d25.mp4" poster="Assets/dra-helem-fidelis-dentista-retrato.webp" autoplay muted loop playsinline aria-label="Vídeo de apresentação da Dra. Helem Fidélis, cirurgiã-dentista CRO RJ 056447"></video>
+      <div class="hero__media-stage">
+        <video class="hero__video" src="https://assets.cdn.filesafe.space/7hzaWcGgawCV1WudlwA7/media/6a387b0e1c5d711b35e29d25.mp4" poster="Assets/dra-helem-fidelis-dentista-retrato.webp" autoplay muted loop playsinline aria-label="Vídeo de apresentação da Dra. Helem Fidélis, cirurgiã-dentista CRO RJ 056447"></video>
+        <span class="hero__media-scrim" aria-hidden="true"></span>
+        <span class="hero__media-shine" aria-hidden="true"></span>
+        <span class="hero__media-live" aria-hidden="true"><span class="hero__media-live-dot"></span>Dra. Helem Fidélis</span>
+      </div>
     </div>
   </div>
 </header>
@@ -419,8 +425,15 @@
     <div class="tech__media reveal reveal--scale">
       <span class="tech__frame" aria-hidden="true"></span>
       <div class="tech__video">
-        <video src="https://assets.cdn.filesafe.space/7hzaWcGgawCV1WudlwA7/media/6a387b13f2131051b83e4af4.mp4" autoplay muted loop playsinline></video>
+        <video src="https://assets.cdn.filesafe.space/7hzaWcGgawCV1WudlwA7/media/6a387b13f2131051b83e4af4.mp4" muted loop playsinline preload="metadata"></video>
         <span class="tech__pill"><span class="tech__pill-dot" aria-hidden="true"></span>Scanner 3D · ao vivo</span>
+        <button class="tech__playpause" type="button" aria-label="Pausar vídeo">
+          <svg class="tech__pp-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="tech__pp-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z"/></svg>
+        </button>
+        <button class="tech__expand" type="button" aria-label="Expandir vídeo em tela cheia">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
       </div>
       <div class="tech__side">
         <img src="Assets/dra-helem-fidelis-scanner-intraoral.webp" alt="Dra. Helem Fidélis com scanner intra-oral digital para odontologia digital" loading="lazy">
@@ -579,16 +592,16 @@
     </div>
     <div class="ig-reels__grid">
       <div class="ig-embed">
-        <iframe src="https://www.instagram.com/p/DDX0D9hPZVJ/embed" title="Depoimento — Sr. Isaías" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen></iframe>
+        <iframe src="https://www.instagram.com/p/DDX0D9hPZVJ/embed/captioned" title="Depoimento — Sr. Isaías" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen></iframe>
       </div>
       <div class="ig-embed">
-        <iframe src="https://www.instagram.com/p/DDvAD_XPUcZ/embed" title="Depoimento — Jucilene" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen></iframe>
+        <iframe src="https://www.instagram.com/p/DDvAD_XPUcZ/embed/captioned" title="Depoimento — Jucilene" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen></iframe>
       </div>
       <div class="ig-embed">
-        <iframe src="https://www.instagram.com/p/DF8VMpmvf51/embed" title="Depoimento — Sra. Floripes" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen></iframe>
+        <iframe src="https://www.instagram.com/p/DF8VMpmvf51/embed/captioned" title="Depoimento — Sra. Floripes" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen></iframe>
       </div>
       <div class="ig-embed">
-        <iframe src="https://www.instagram.com/p/DObZUlHjqmI/embed" title="Depoimento — Patrícia" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen></iframe>
+        <iframe src="https://www.instagram.com/p/DObZUlHjqmI/embed/captioned" title="Depoimento — Patrícia" loading="lazy" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen></iframe>
       </div>
     </div>
     <a href="https://www.instagram.com/drahelemfidelis/" target="_blank" rel="noopener" class="ig-reels__more">
@@ -883,6 +896,21 @@
   </nav>
   <a href="https://wa.me/5521979937234?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20uma%20informa%C3%A7%C3%A3o." target="_blank" rel="noopener" class="drawer__cta" data-close>Agendar pelo WhatsApp</a>
 </aside>
+
+<!-- ============ MODAL DE VÍDEO (LIGHTBOX PREMIUM) ============ -->
+<div class="vmodal" id="techVideoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Vídeo — Scanner intra-oral 3D">
+  <div class="vmodal__overlay" data-vclose></div>
+  <button class="vmodal__close" type="button" data-vclose aria-label="Fechar vídeo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <div class="vmodal__dialog">
+    <div class="vmodal__frame">
+      <span class="vmodal__pill"><span class="vmodal__pill-dot" aria-hidden="true"></span>Scanner 3D · ao vivo</span>
+      <video class="vmodal__video" src="https://assets.cdn.filesafe.space/7hzaWcGgawCV1WudlwA7/media/6a387b13f2131051b83e4af4.mp4" playsinline loop controls preload="none"></video>
+    </div>
+    <span class="vmodal__cap">Scanner intra-oral 3D · Dra. Helem Fidélis</span>
+  </div>
+</div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js" defer></script>
 

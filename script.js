@@ -256,5 +256,56 @@
       if (waBtn) waBtn.addEventListener('click', waHide);
     }
 
+    /* ---------------------------------------------------------------
+       7. VÍDEO Tecnologia — botão play/pause
+    --------------------------------------------------------------- */
+    var techVideoBox = document.querySelector('.tech__video');
+    if (techVideoBox) {
+      var techVideo = techVideoBox.querySelector('video');
+      var techPP = techVideoBox.querySelector('.tech__playpause');
+      if (techVideo && techPP) {
+        var techSync = function () {
+          var paused = techVideo.paused;
+          techVideoBox.classList.toggle('is-paused', paused);
+          techPP.setAttribute('aria-label', paused ? 'Reproduzir vídeo' : 'Pausar vídeo');
+        };
+        techPP.addEventListener('click', function () {
+          if (techVideo.paused) { techVideo.play(); } else { techVideo.pause(); }
+        });
+        techVideo.addEventListener('play', techSync);
+        techVideo.addEventListener('pause', techSync);
+        techSync();
+      }
+      var techExpand = techVideoBox.querySelector('.tech__expand');
+      var vmodal = document.getElementById('techVideoModal');
+      if (techVideo && techExpand && vmodal) {
+        var vmodalVideo = vmodal.querySelector('.vmodal__video');
+        var openVModal = function () {
+          vmodal.classList.add('open');
+          vmodal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          if (techVideo.pause) techVideo.pause();
+          if (vmodalVideo) {
+            var pp = vmodalVideo.play();
+            if (pp && pp.catch) pp.catch(function () { vmodalVideo.muted = true; vmodalVideo.play().catch(function () {}); });
+          }
+        };
+        var closeVModal = function () {
+          if (!vmodal.classList.contains('open')) return;
+          vmodal.classList.remove('open');
+          vmodal.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          if (vmodalVideo) vmodalVideo.pause();
+          if (techVideo.play) { var pr = techVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        };
+        techExpand.addEventListener('click', openVModal);
+        var vcloseEls = vmodal.querySelectorAll('[data-vclose]');
+        for (var vi = 0; vi < vcloseEls.length; vi++) { vcloseEls[vi].addEventListener('click', closeVModal); }
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' || e.keyCode === 27) closeVModal();
+        });
+      }
+    }
+
   });
 })();

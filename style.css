@@ -164,11 +164,38 @@ body.no-scroll{overflow:hidden}
 .hero__trust{display:inline-flex;align-items:center;gap:12px;margin-top:32px;font-size:13.5px;color:var(--text-soft)}
 .stars{display:inline-flex;gap:2px;color:var(--dourado);font-size:16px;letter-spacing:1px}
 .hero__trust-txt strong{color:var(--cacau);font-weight:700}
-/* Foto ao lado — minimalista clean (retângulo + 1 linha dourada fina) */
-.hero__media{position:relative;justify-self:center;width:100%;max-width:430px;aspect-ratio:3/4}
-.hero__media-frame{position:absolute;inset:20px -20px -20px 20px;border:1px solid rgba(201,168,106,.5);border-radius:24px;z-index:0}
-.hero__photo{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;object-position:center bottom;border-radius:24px;box-shadow:0 30px 64px rgba(74,59,46,.2)}
-.hero__video{object-position:center;background:var(--marfim)}
+/* ===== Vídeo ao lado — apresentação super premium ===== */
+.hero__media{position:relative;justify-self:center;width:100%;max-width:330px;aspect-ratio:9/16;margin-top:-26px}
+/* brilho quente por trás do vídeo (profundidade) */
+.hero__media-glow{position:absolute;z-index:0;inset:-14% -12% -10% -12%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(56% 52% at 60% 34%,rgba(201,168,106,.42),transparent 70%);filter:blur(28px)}
+/* moldura deslocada em fio dourado gradiente (identidade da marca, refinada) */
+.hero__media-frame{position:absolute;inset:20px -20px -20px 20px;border-radius:26px;z-index:0;pointer-events:none;
+  border:1.5px solid transparent;
+  background:linear-gradient(150deg,rgba(201,168,106,.9),rgba(201,168,106,.12) 55%,rgba(201,168,106,.6)) border-box;
+  -webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude}
+/* palco do vídeo (moldura, recorte e sombra premium) */
+.hero__media-stage{position:relative;z-index:1;width:100%;height:100%;border-radius:26px;overflow:hidden;
+  box-shadow:0 24px 50px rgba(58,46,35,.16),0 6px 16px rgba(58,46,35,.1),
+    inset 0 0 0 1px rgba(201,168,106,.5),inset 0 1px 0 rgba(255,255,255,.18)}
+.hero__video{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;object-position:center;
+  display:block;background:var(--marfim)}
+/* scrim cinematográfico (topo e base) */
+.hero__media-scrim{position:absolute;z-index:2;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(58,46,35,.2) 0%,transparent 20%,transparent 58%,rgba(58,46,35,.42) 100%)}
+/* brilho que percorre a moldura (reflexo de luxo, sutil) */
+.hero__media-shine{position:absolute;z-index:3;top:-10%;left:-80%;width:75%;height:120%;pointer-events:none;
+  background:linear-gradient(105deg,transparent 28%,rgba(255,255,255,.06) 50%,transparent 72%);transform:skewX(-14deg);
+  animation:hero-media-sweep 11s ease-in-out 2.4s infinite}
+/* assinatura em vidro (quem aparece no vídeo) */
+.hero__media-live{position:absolute;z-index:4;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:9px;
+  padding:9px 15px 9px 12px;border-radius:40px;font-size:12.5px;font-weight:600;letter-spacing:.3px;color:var(--offwhite);
+  background:rgba(58,46,35,.42);-webkit-backdrop-filter:blur(10px) saturate(1.2);backdrop-filter:blur(10px) saturate(1.2);
+  border:1px solid rgba(201,168,106,.5);box-shadow:0 10px 26px rgba(0,0,0,.34)}
+.hero__media-live-dot{width:8px;height:8px;border-radius:50%;background:var(--dourado);
+  box-shadow:0 0 0 0 rgba(201,168,106,.6);animation:pulse-gold 2.4s infinite}
+@keyframes hero-media-sweep{0%,70%{left:-60%}86%,100%{left:130%}}
 @keyframes pulse-gold{0%{box-shadow:0 0 0 0 rgba(201,168,106,.55)}70%{box-shadow:0 0 0 8px rgba(201,168,106,0)}100%{box-shadow:0 0 0 0 rgba(201,168,106,0)}}
 @keyframes hero-underline{to{transform:scaleX(1)}}
 @keyframes hero-shine{from{left:-130%}to{left:130%}}
@@ -363,6 +390,55 @@ body.no-scroll{overflow:hidden}
   padding:7px 13px;border-radius:30px;box-shadow:0 8px 20px rgba(74,59,46,.14)}
 .tech__pill-dot{width:7px;height:7px;border-radius:50%;background:#E0584F;box-shadow:0 0 0 0 rgba(224,88,79,.6);animation:tech-live 1.8s infinite}
 @keyframes tech-live{0%{box-shadow:0 0 0 0 rgba(224,88,79,.6)}70%{box-shadow:0 0 0 7px rgba(224,88,79,0)}100%{box-shadow:0 0 0 0 rgba(224,88,79,0)}}
+/* botão play/pause do vídeo (glass premium) — centralizado */
+.tech__playpause{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:60px;height:60px;padding:0;
+  display:inline-flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;color:#fff;
+  background:rgba(58,46,35,.44);border:1px solid rgba(255,255,255,.42);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 10px 28px rgba(0,0,0,.36);
+  transition:background .25s var(--ease),transform .25s var(--ease)}
+.tech__playpause:hover{background:rgba(58,46,35,.64);transform:translate(-50%,-50%) scale(1.07)}
+.tech__playpause svg{width:26px;height:26px;display:block}
+.tech__playpause .tech__pp-play{display:none;margin-left:2px}
+.tech__video.is-paused .tech__playpause .tech__pp-play{display:block}
+.tech__video.is-paused .tech__playpause .tech__pp-pause{display:none}
+/* botão de expandir (tela cheia) — canto superior direito, só aparece com o vídeo tocando */
+.tech__expand{position:absolute;z-index:2;top:14px;right:14px;width:40px;height:40px;padding:0;
+  display:inline-flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;color:#fff;
+  background:rgba(58,46,35,.44);border:1px solid rgba(255,255,255,.42);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 8px 22px rgba(0,0,0,.32);
+  opacity:0;visibility:hidden;transform:translateY(-5px);
+  transition:opacity .28s var(--ease),transform .28s var(--ease),background .25s var(--ease)}
+.tech__video:not(.is-paused) .tech__expand{opacity:1;visibility:visible;transform:none}
+.tech__expand:hover{background:rgba(58,46,35,.64)}
+.tech__expand svg{width:19px;height:19px;display:block}
+/* ===== Modal de vídeo (lightbox premium) ===== */
+.vmodal{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;
+  padding:56px 24px;opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s var(--ease)}
+.vmodal.open{opacity:1;visibility:visible}
+.vmodal__overlay{position:absolute;inset:0;cursor:pointer;
+  background:radial-gradient(130% 120% at 50% 26%,rgba(74,59,46,.72),rgba(18,12,8,.88));
+  -webkit-backdrop-filter:blur(16px) saturate(1.1);backdrop-filter:blur(16px) saturate(1.1)}
+.vmodal__dialog{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:16px;
+  transform:translateY(16px) scale(.95);opacity:.35;
+  transition:transform .5s var(--ease),opacity .5s var(--ease)}
+.vmodal.open .vmodal__dialog{transform:none;opacity:1}
+.vmodal__frame{position:relative;border-radius:22px;overflow:hidden;background:#000;
+  box-shadow:0 50px 120px rgba(0,0,0,.6),0 0 0 1px rgba(201,168,106,.6),0 0 0 9px rgba(201,168,106,.1)}
+.vmodal__video{display:block;height:min(80vh,880px);max-width:92vw;width:auto;background:#000}
+.vmodal__pill{position:absolute;z-index:2;top:16px;left:16px;display:inline-flex;align-items:center;gap:7px;
+  pointer-events:none;background:rgba(251,250,247,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  color:var(--bronze);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  padding:7px 13px;border-radius:30px;box-shadow:0 8px 20px rgba(0,0,0,.28)}
+.vmodal__pill-dot{width:7px;height:7px;border-radius:50%;background:#E0584F;animation:tech-live 1.8s infinite}
+.vmodal__cap{font-family:var(--serif);font-size:16px;font-style:italic;letter-spacing:.3px;color:var(--areia)}
+.vmodal__close{position:absolute;z-index:2;top:20px;right:24px;width:46px;height:46px;padding:0;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;border-radius:50%;color:#fff;
+  background:rgba(58,46,35,.5);border:1px solid rgba(255,255,255,.4);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 10px 26px rgba(0,0,0,.4);
+  transition:background .25s var(--ease),transform .25s var(--ease)}
+.vmodal__close:hover{background:rgba(58,46,35,.72);transform:rotate(90deg)}
+.vmodal__close svg{width:22px;height:22px}
 .tech__side{position:relative;z-index:1;display:flex;flex-direction:column;gap:18px;width:38%;justify-content:center}
 .tech__side img{width:100%;border-radius:20px;box-shadow:0 18px 38px rgba(74,59,46,.16);object-fit:cover}
 .tech__card{position:relative;overflow:hidden;border-radius:20px;padding:22px 20px;color:var(--marfim);
@@ -390,9 +466,9 @@ body.no-scroll{overflow:hidden}
 /* brilho dourado premium por trás da parede de galeria */
 .about__glint{position:absolute;z-index:0;inset:-6% -8% -4% -8%;border-radius:50%;pointer-events:none;
   background:radial-gradient(60% 56% at 52% 36%,rgba(201,168,106,.30),transparent 70%);filter:blur(22px)}
-/* ---- galeria minimalista (duas fotos limpas, base compartilhada, muito respiro) ---- */
-.about__gallery{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:center;gap:28px}
-.gframe{position:relative;margin:0;min-width:0;border-radius:20px;overflow:hidden;
+/* ---- galeria minimalista: retrato grande em destaque + recorte sobreposto ---- */
+.about__gallery{position:relative;z-index:1}
+.gframe{position:relative;margin:0;min-width:0;border-radius:22px;overflow:hidden;
   box-shadow:0 30px 60px rgba(0,0,0,.4),0 8px 20px rgba(0,0,0,.22);
   transition:transform .6s var(--ease)}
 /* fio dourado sutil — único detalhe decorativo */
@@ -401,12 +477,13 @@ body.no-scroll{overflow:hidden}
 .gframe img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;
   transition:transform 1.2s var(--ease)}
 .gframe:hover img{transform:scale(1.05)}
-/* quadro principal — retrato (destaque) */
-.gframe--main{flex:0 1 55%;aspect-ratio:4/5}
-/* quadro secundário — foto do sofá (menor e discreto, mesma base) */
-.gframe--sec{flex:0 1 37%;aspect-ratio:4/4.5;margin-bottom:8%}
+/* retrato — grande, protagonista, alinhado à direita (proporção natural: corpo inteiro) */
+.gframe--main{width:82%;margin-left:auto;aspect-ratio:423/635}
+/* foto do sofá — recorte limpo sobreposto no canto inferior esquerdo */
+.gframe--sec{position:absolute;left:0;bottom:-7%;width:44%;aspect-ratio:4/4.7;z-index:2;
+  border-radius:18px;box-shadow:0 24px 50px rgba(0,0,0,.5),0 0 0 5px var(--cacau)}
 /* selo de avaliação — pílula limpa e discreta */
-.about__badge{position:absolute;z-index:3;left:50%;bottom:-20px;transform:translateX(-50%);
+.about__badge{position:absolute;z-index:3;right:2%;top:5%;
   display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
   background:var(--offwhite);color:var(--cacau);
   border-radius:40px;padding:11px 20px;box-shadow:0 16px 36px rgba(0,0,0,.3);
@@ -493,17 +570,22 @@ body.no-scroll{overflow:hidden}
 .dot.active{width:26px;background:var(--bronze)}
 
 /* ----- Reels de depoimento (Instagram) ----- */
-.ig-reels{position:relative;z-index:1;margin:80px auto 0;max-width:1140px;padding:0 28px;text-align:center}
+.ig-reels{position:relative;z-index:1;margin:80px auto 0;max-width:1200px;padding:0 28px;text-align:center}
 .ig-reels__head{max-width:620px;margin:0 auto 36px}
 .ig-reels__title{font-family:var(--serif);font-weight:500;font-size:clamp(26px,3.2vw,40px);line-height:1.1;margin:12px 0 12px;color:var(--cacau)}
 .ig-reels__title em{font-style:italic;color:var(--bronze)}
 .ig-reels__sub{font-size:16px;line-height:1.65;color:var(--text-soft);margin:0}
-.ig-reels__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.ig-embed{position:relative;border-radius:20px;overflow:hidden;background:#fff;
-  border:1px solid rgba(201,168,106,.3);box-shadow:0 20px 46px rgba(74,59,46,.14);
+.ig-reels__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:540px;margin:0 auto}
+@media (min-width:1201px){.ig-reels__grid{max-width:1136px}} /* 4 numa fileira só no desktop largo */
+/* Card 4×1: renderiza o embed largo (o @ cabe) e escala tudo p/ baixo → card pequeno, @ inteiro, alinhados */
+.ig-embed{position:relative;width:275px;height:475px;border-radius:14px;overflow:hidden;background:#fff;
+  border:1px solid rgba(201,168,106,.32);box-shadow:0 16px 38px rgba(74,59,46,.14);
   transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
-.ig-embed:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(74,59,46,.2)}
-.ig-embed iframe{display:block;width:100%;min-height:560px;border:0;background:#fff}
+.ig-embed::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
+.ig-embed:hover{transform:translateY(-6px);box-shadow:0 26px 54px rgba(74,59,46,.2)}
+.ig-embed iframe{display:block;width:350px;height:604px;border:0;background:#fff;
+  transform:scale(.7857);transform-origin:top left}
 
 .ig-reels__more{display:inline-flex;align-items:center;gap:9px;margin-top:36px;
   padding:13px 26px;border-radius:44px;text-decoration:none;font-size:14.5px;font-weight:600;
@@ -752,6 +834,16 @@ body.no-scroll{overflow:hidden}
   .tech__grid,.about__grid{grid-template-columns:1fr;gap:44px}
   .contact__card{grid-template-columns:1fr}
   .about__photo{max-width:460px}
+  /* SOBRE — no mobile a imagem entra entre a função e o texto "Para mim..." */
+  .about__grid{gap:0}
+  .about__body{display:contents}
+  .about__eyebrow{order:1;justify-self:start}
+  .about__title{order:2}
+  .about__body>.about__role{order:3}
+  .about__photo--gallery{order:4;max-width:430px;margin:26px auto 62px}
+  .about__body>.about__lead{order:5}
+  .about__body>p{order:6}
+  .about__pills{order:7}
   /* TECNOLOGIA — no mobile a mídia entra entre o título e o parágrafo */
   .tech__grid{gap:26px}
   .tech__col{display:contents}
@@ -776,7 +868,7 @@ body.no-scroll{overflow:hidden}
   .hero__media{margin:0 auto}
   .hero__scroll{display:none}
   .footer__grid{grid-template-columns:1fr 1fr}
-  .ig-reels__grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .ig-reels__grid{grid-template-columns:repeat(2,1fr);max-width:720px}
   .ds__grid{grid-template-columns:1fr;gap:40px}
   .ds__media{max-width:330px;margin:0 auto;aspect-ratio:9/16}
 }
@@ -818,22 +910,20 @@ body.no-scroll{overflow:hidden}
   .tags{gap:8px;justify-content:center}
   .tag{padding:8px 14px;font-size:12.5px}
   .hero__badge{left:0}
-  /* SOBRE — selos contidos e botão em largura total */
+  /* SOBRE — selo de avaliação contido no mobile */
   .about__chip{left:0;top:12px}
-  .about__badge{right:0;bottom:-14px;padding:12px 18px}
-  /* galeria — mais próxima e centrada no mobile */
-  .about__photo--gallery{max-width:430px;margin:0 auto}
-  .about__gallery{gap:16px}
+  .about__badge{right:3%;top:4%;bottom:auto;padding:10px 16px}
   /* DEPOIMENTOS — card compacto e sem corte de texto */
   .reviews{padding:80px 0}
   .carousel{padding:0 16px}
   .carousel__track{min-height:470px}
   .testimonial{padding:36px 26px 30px}
   .testimonial__person{flex-wrap:wrap;justify-content:center;gap:10px 12px}
-  /* reels do Instagram — uma coluna no celular */
+  /* reels do Instagram — uma coluna no celular, card menor e compacto (com respiro nas laterais) */
   .ig-reels{margin-top:60px}
-  .ig-reels__grid{grid-template-columns:1fr;gap:16px;max-width:360px;margin:0 auto}
-  .ig-embed iframe{min-height:500px}
+  .ig-reels__grid{gap:18px;max-width:360px;margin:0 auto}
+  .ig-embed{width:315px;height:544px}
+  .ig-embed iframe{transform:scale(.9)}
 }
 
 @media (prefers-reduced-motion:reduce){
