@@ -553,36 +553,60 @@ body.no-scroll{overflow:hidden}
   box-shadow:0 10px 26px rgba(74,59,46,.08);font-size:14px;font-weight:600;color:var(--cacau)}
 .google-badge strong{font-size:17px}
 
-.carousel{position:relative;z-index:1;margin:52px auto 0;max-width:860px;padding:0 28px}
-.carousel__track{position:relative;min-height:380px}
-.testimonial{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:48px 52px 40px;border-radius:28px;text-align:center;
-  background:linear-gradient(165deg,#fff,var(--marfim));border:1px solid rgba(201,168,106,.3);
-  box-shadow:0 28px 64px rgba(74,59,46,.13);
-  opacity:0;pointer-events:none;transform:translateY(16px) scale(.98);
-  transition:opacity .55s var(--ease),transform .55s var(--ease)}
-.testimonial::after{content:'';position:absolute;top:-30%;right:-12%;width:260px;height:260px;border-radius:50%;
-  background:radial-gradient(circle,rgba(201,168,106,.16),transparent 70%);pointer-events:none}
-.testimonial.active{opacity:1;pointer-events:auto;transform:none;z-index:2}
-.testimonial__mark{position:relative;z-index:1;font-family:var(--serif);font-size:96px;line-height:.5;
-  height:38px;color:rgba(201,168,106,.45);margin-bottom:6px}
-.testimonial blockquote{position:relative;z-index:1;font-family:var(--serif);font-style:italic;
-  font-size:clamp(22px,2.8vw,30px);line-height:1.45;color:var(--cacau);margin:0 0 30px;max-width:680px}
-.testimonial__person{position:relative;z-index:1;display:inline-flex;align-items:center;gap:14px}
-.testimonial__avatar{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
-  width:50px;height:50px;border-radius:50%;font-family:var(--serif);font-weight:700;font-size:17px;
+/* ----- Mural de depoimentos (premium) ----- */
+.tw{position:relative;z-index:1;margin:44px auto 0;max-width:1180px;padding:0 28px}
+.stars{color:#E7B93B;letter-spacing:2px;font-size:13px;line-height:1}
+
+/* Carrossel */
+.tw-carousel{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:22px 16px;min-width:0}
+.tw-viewport{overflow:hidden;flex:1;min-width:0;order:2}
+.tw-arrow--prev{order:1}
+.tw-arrow--next{order:3}
+.tw-track{display:flex;gap:20px;padding:14px 10px 30px;transition:transform .55s var(--ease);will-change:transform}
+.tw-card{flex:0 0 calc((100% - 40px)/3);box-sizing:border-box;margin:0;
+  display:flex;flex-direction:column;
+  background:linear-gradient(165deg,#fff,var(--marfim));
+  border:1px solid rgba(201,168,106,.24);border-radius:16px;
+  padding:22px 22px 18px;
+  box-shadow:0 2px 5px -1px rgba(74,59,46,.05),0 12px 18px -12px rgba(74,59,46,.16);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease)}
+@media (max-width:900px){.tw-card{flex-basis:calc((100% - 20px)/2)}}
+@media (max-width:600px){.tw-card{flex-basis:100%}}
+.tw-card:hover{transform:translateY(-5px);border-color:rgba(201,168,106,.5);
+  box-shadow:0 4px 8px rgba(74,59,46,.06),0 22px 30px -12px rgba(74,59,46,.18)}
+.tw-card blockquote{flex:1 0 auto;font-size:14.5px;line-height:1.55;color:var(--text-soft);margin:10px 0 18px}
+
+/* Setas + dots */
+.tw-arrow{flex-shrink:0;align-self:center;width:46px;height:46px;border-radius:50%;
+  border:1px solid rgba(74,59,46,.18);background:#fff;color:var(--cacau);cursor:pointer;
+  font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 22px rgba(74,59,46,.1);transition:all .25s}
+.tw-arrow:hover{background:var(--bronze);color:#fff;border-color:var(--bronze);transform:scale(1.06)}
+.tw-arrow:disabled{opacity:.3;cursor:default;background:#fff;color:var(--cacau);
+  border-color:rgba(74,59,46,.18);transform:none;box-shadow:none}
+.tw-dots{order:4;flex-basis:100%;display:flex;justify-content:center;align-items:center;gap:8px}
+.tw-dot{width:8px;height:8px;border-radius:8px;background:#D8CBB6;cursor:pointer;
+  transition:all .3s;border:none;padding:0}
+.tw-dot.active{width:26px;background:var(--bronze)}
+/* Mobile: viewport ocupa a linha inteira; setas ladeiam os dots numa barra embaixo */
+@media (max-width:600px){
+  .tw-viewport{flex-basis:100%;order:1}
+  .tw-arrow{width:40px;height:40px;font-size:18px;order:2}
+  .tw-dots{order:3;flex-basis:auto}
+  .tw-arrow--next{order:4}
+}
+
+/* Pessoa (reutilizado no destaque e nos cards) */
+.tw-person{display:flex;align-items:center;gap:11px;margin:0}
+.tw-avatar{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:50%;font-family:var(--serif);font-weight:700;font-size:14px;
   color:var(--offwhite);background:linear-gradient(150deg,var(--bronze),var(--bronze-warm));
-  box-shadow:0 8px 20px rgba(144,120,96,.3)}
-.testimonial__id{display:flex;flex-direction:column;text-align:left}
-.testimonial cite{font-style:normal;font-size:15px;font-weight:700;letter-spacing:.3px;color:var(--cacau)}
-.testimonial__src{font-size:11.5px;font-weight:500;letter-spacing:.3px;color:var(--bronze)}
-.testimonial .stars{font-size:15px;margin-left:4px}
-.carousel__nav{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:26px}
-.arrow{width:46px;height:46px;border-radius:50%;border:1px solid rgba(74,59,46,.2);background:#fff;color:var(--cacau);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .25s}
-.arrow:hover{background:var(--bronze);color:#fff;border-color:var(--bronze)}
-.carousel__dots{display:flex;gap:8px;align-items:center}
-.dot{width:8px;height:8px;border-radius:8px;background:#D8CBB6;cursor:pointer;transition:all .3s;border:none;padding:0}
-.dot.active{width:26px;background:var(--bronze)}
+  box-shadow:0 6px 16px rgba(144,120,96,.28)}
+.tw-person__id{display:flex;flex-direction:column;gap:1px;text-align:left;min-width:0}
+.tw-person cite{font-style:normal;font-size:13.5px;font-weight:700;letter-spacing:.2px;color:var(--cacau)}
+.tw-person__src{display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:500;letter-spacing:.2px;color:var(--bronze)}
+.tw-person__src svg{flex-shrink:0}
 
 /* ----- Reels de depoimento (Instagram) ----- */
 .ig-reels{position:relative;z-index:1;margin:80px auto 0;max-width:1200px;padding:0 28px;text-align:center}
@@ -916,6 +940,8 @@ body.no-scroll{overflow:hidden}
   .svc-list{grid-template-columns:1fr;grid-auto-rows:auto;gap:18px;max-width:400px;margin:0 auto}
   .svc-card{padding:28px 26px}
   .svc-card__num{font-size:118px}
+  /* card CTA: altura natural no mobile → botão precisa de margem fixa (o margin-top:auto vira 0) */
+  .svc-card__cta-btn{margin-top:20px}
   .svc-cta{padding:30px 26px}
   .svc-cta__btn{width:100%;justify-content:center}
   /* demais procedimentos — compacto e centralizado no mobile */
@@ -927,12 +953,9 @@ body.no-scroll{overflow:hidden}
   /* SOBRE — selo de avaliação contido no mobile */
   .about__chip{left:0;top:12px}
   .about__badge{right:3%;top:4%;bottom:auto;padding:10px 16px}
-  /* DEPOIMENTOS — card compacto e sem corte de texto */
+  /* DEPOIMENTOS — carrossel compacto no mobile */
   .reviews{padding:80px 0}
-  .carousel{padding:0 16px}
-  .carousel__track{min-height:470px}
-  .testimonial{padding:36px 26px 30px}
-  .testimonial__person{flex-wrap:wrap;justify-content:center;gap:10px 12px}
+  .tw{padding:0 16px}
   /* reels do Instagram — uma coluna no celular, card menor e compacto (com respiro nas laterais) */
   .ig-reels{margin-top:60px}
   .ig-reels__grid{gap:18px;max-width:360px;margin:0 auto}

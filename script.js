@@ -114,44 +114,85 @@
     });
 
     /* ---------------------------------------------------------------
-       4. CARROSSEL de depoimentos (fade + auto-rotate)
+       4. DEPOIMENTOS — carrossel de cards (slide + auto + swipe)
     --------------------------------------------------------------- */
-    var track = document.getElementById('carouselTrack');
-    if (track) {
-      var slides = Array.prototype.slice.call(track.querySelectorAll('.testimonial'));
-      var dotsWrap = document.getElementById('dots');
-      var prevBtn = document.getElementById('prevBtn');
-      var nextBtn = document.getElementById('nextBtn');
-      var current = 0;
-      var timer = null;
+    var revTrack = document.getElementById('revTrack');
+    if (revTrack) {
+      var revCards = Array.prototype.slice.call(revTrack.children);
+      var revPrev = document.getElementById('revPrev');
+      var revNext = document.getElementById('revNext');
+      var revDots = document.getElementById('revDots');
+      var page = 0, pages = 1, perView = 3, maxShift = 0, revTimer = null;
 
-      // cria os dots dinamicamente
-      var dots = slides.map(function (_, i) {
-        var b = document.createElement('button');
-        b.className = 'dot' + (i === 0 ? ' active' : '');
-        b.setAttribute('aria-label', 'Ir para depoimento ' + (i + 1));
-        b.addEventListener('click', function () { show(i); restart(); });
-        dotsWrap.appendChild(b);
-        return b;
+      function perViewFor() {
+        var w = window.innerWidth;
+        return w <= 600 ? 1 : (w <= 900 ? 2 : 3);
+      }
+      function metrics() {
+        var first = revCards[0];
+        var cardW = first.getBoundingClientRect().width;
+        var gap = parseFloat(getComputedStyle(revTrack).columnGap) || 0;
+        return { step: cardW + gap, gap: gap };
+      }
+      function build() {
+        perView = perViewFor();
+        pages = Math.max(1, revCards.length - perView + 1); // desliza 1 card por vez
+        var m = metrics();
+        // scrollWidth do Chrome ignora o padding direito; somamos de volta p/ alinhar a última posição
+        var padRight = parseFloat(getComputedStyle(revTrack).paddingRight) || 0;
+        maxShift = revTrack.scrollWidth + padRight - revTrack.parentElement.clientWidth;
+        revTrack._step = m.step;
+        if (page > pages - 1) page = pages - 1;
+
+        // (re)cria os dots
+        revDots.innerHTML = '';
+        revDots._dots = [];
+        for (var i = 0; i < pages; i++) {
+          (function (idx) {
+            var b = document.createElement('button');
+            b.className = 'tw-dot' + (idx === page ? ' active' : '');
+            b.setAttribute('aria-label', 'Ir para o grupo ' + (idx + 1));
+            b.addEventListener('click', function () { go(idx); restart(); });
+            revDots.appendChild(b);
+            revDots._dots.push(b);
+          })(i);
+        }
+        apply();
+      }
+      function apply() {
+        var shift = Math.min(page * revTrack._step, maxShift);
+        if (shift < 0) shift = 0;
+        revTrack.style.transform = 'translateX(-' + shift + 'px)';
+        if (revDots._dots) revDots._dots.forEach(function (d, i) { d.classList.toggle('active', i === page); });
+        if (revPrev) revPrev.disabled = page === 0;
+        if (revNext) revNext.disabled = page >= pages - 1;
+      }
+      function go(i) { page = Math.max(0, Math.min(i, pages - 1)); apply(); }
+      function restart() {
+        clearInterval(revTimer);
+        revTimer = setInterval(function () { go(page >= pages - 1 ? 0 : page + 1); }, 5500);
+      }
+
+      if (revPrev) revPrev.addEventListener('click', function () { go(page - 1); restart(); });
+      if (revNext) revNext.addEventListener('click', function () { go(page + 1); restart(); });
+
+      // swipe no mobile
+      var startX = 0, dragging = false;
+      revTrack.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; dragging = true; clearInterval(revTimer); }, { passive: true });
+      revTrack.addEventListener('touchend', function (e) {
+        if (!dragging) return; dragging = false;
+        var dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) go(dx < 0 ? page + 1 : page - 1);
+        restart();
       });
 
-      function show(i) {
-        current = (i + slides.length) % slides.length;
-        slides.forEach(function (s, idx) { s.classList.toggle('active', idx === current); });
-        dots.forEach(function (d, idx) { d.classList.toggle('active', idx === current); });
-      }
-      function restart() {
-        clearInterval(timer);
-        timer = setInterval(function () { show(current + 1); }, 6000);
-      }
-      if (prevBtn) prevBtn.addEventListener('click', function () { show(current - 1); restart(); });
-      if (nextBtn) nextBtn.addEventListener('click', function () { show(current + 1); restart(); });
+      revTrack.parentElement.addEventListener('mouseenter', function () { clearInterval(revTimer); });
+      revTrack.parentElement.addEventListener('mouseleave', restart);
 
-      // pausa ao passar o mouse
-      track.addEventListener('mouseenter', function () { clearInterval(timer); });
-      track.addEventListener('mouseleave', restart);
+      var rzTimer = null;
+      window.addEventListener('resize', function () { clearTimeout(rzTimer); rzTimer = setTimeout(build, 180); });
 
-      show(0);
+      build();
       restart();
     }
 
