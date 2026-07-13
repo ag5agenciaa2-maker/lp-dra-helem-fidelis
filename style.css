@@ -819,37 +819,73 @@ body.no-scroll{overflow:hidden}
 .footer-credits-right a{color:var(--dourado);text-decoration:none;font-weight:600;transition:color .3s ease}
 .footer-credits-right a:hover{color:var(--bronze-warm)}
 
-/* ---------- WhatsApp flutuante ---------- */
-.wa-float{position:fixed;bottom:24px;right:24px;z-index:90;width:60px;height:60px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(37,211,102,.4);transition:transform .25s}
-.wa-float:hover{transform:scale(1.08)}
-/* ---------- WhatsApp · Balão de mensagem premium (glassmorphism) ---------- */
-.wa-premium{position:fixed;bottom:24px;right:24px;z-index:90}
-.wa-premium .wa-float{position:relative;bottom:auto;right:auto}
+/* ═══════════════════════════════════════════════════════
+   WHATSAPP PREMIUM — Balão + botão flutuante (AG5 V4)
+═══════════════════════════════════════════════════════ */
+.wa-premium-container{position:fixed;bottom:25px;right:20px;z-index:2000;font-family:var(--sans)}
+
 .wa-bubble{
-  position:absolute;bottom:76px;right:0;width:300px;max-width:78vw;
-  background:rgba(251,250,247,.86);-webkit-backdrop-filter:blur(15px);backdrop-filter:blur(15px);
-  border:1px solid rgba(255,255,255,.5);border-radius:22px 22px 4px 22px;
-  box-shadow:0 22px 46px rgba(74,59,46,.22);padding:18px 18px 16px;
-  opacity:0;visibility:hidden;transform:translateY(16px) scale(.96);
-  transition:opacity .5s var(--ease),transform .5s cubic-bezier(.34,1.56,.64,1),visibility .5s;
+  width:280px;position:absolute;bottom:68px;right:0;
+  background:rgba(255,252,246,.98);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(201,168,106,.25);border-radius:1rem;
+  box-shadow:0 12px 32px -12px rgba(28,24,12,.18);
+  padding:1rem 1.15rem;opacity:0;visibility:hidden;
+  transform:translateY(20px) scale(.95);
+  transition:all .6s cubic-bezier(.34,1.56,.64,1);
+}
+/* Cauda triangular conectando o balão ao botão */
+.wa-bubble::before{
+  content:'';position:absolute;bottom:-10px;right:16px;width:20px;height:20px;
+  background:inherit;border-right:1px solid rgba(201,168,106,.35);border-bottom:1px solid rgba(201,168,106,.35);
+  transform:rotate(45deg);border-bottom-right-radius:4px;z-index:-1;
 }
 .wa-bubble.show{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
-.wa-bubble__close{position:absolute;top:10px;right:10px;background:none;border:none;color:var(--text-soft);cursor:pointer;padding:4px;line-height:0;opacity:.55;transition:opacity .25s}
-.wa-bubble__close:hover{opacity:1}
-.wa-bubble__head{display:flex;align-items:center;gap:12px;padding-bottom:12px;margin-bottom:4px;border-bottom:1px solid rgba(74,59,46,.1)}
-.wa-bubble__avatar{position:relative;flex-shrink:0}
-.wa-bubble__avatar img{width:46px;height:46px;border-radius:14px;object-fit:cover;border:2px solid var(--bronze)}
-.wa-bubble__dot{position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;background:#25D366;border:2px solid var(--offwhite);border-radius:50%;animation:wa-pulse 2s infinite}
-.wa-bubble__name{display:block;font-family:var(--serif);font-weight:600;font-size:17px;color:var(--cacau);line-height:1.15}
-.wa-bubble__status{font-size:10.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:#1FA855}
-.wa-typing{display:flex;gap:5px;padding:8px 2px}
-.wa-typing span{width:7px;height:7px;border-radius:50%;background:var(--bronze);opacity:.4;animation:wa-typing 1.4s infinite}
+
+.wa-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,.06)}
+.wa-avatar-wrapper{position:relative;flex-shrink:0}
+.wa-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid #25d366;display:block}
+.wa-name{display:block;font-weight:700;color:#1a1a1a;font-size:14px;letter-spacing:.01em}
+
+.wa-typing{display:flex;gap:4px;padding:6px 0}
+.wa-typing span{width:5px;height:5px;background:#25d366;border-radius:50%;animation:wa-typing-ani 1.4s infinite;opacity:.4}
 .wa-typing span:nth-child(2){animation-delay:.2s}
 .wa-typing span:nth-child(3){animation-delay:.4s}
-.wa-bubble__msg p{margin:2px 0 0;font-size:14px;line-height:1.55;color:var(--text-soft)}
-.wa-bubble__msg strong{color:var(--cacau);font-weight:700}
-@keyframes wa-typing{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-4px);opacity:1}}
-@keyframes wa-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.6)}70%{box-shadow:0 0 0 9px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+@keyframes wa-typing-ani{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-4px);opacity:1}}
+
+.wa-message-text p{margin:0;font-size:13px;color:#333;line-height:1.5}
+.wa-message-text p strong{color:var(--bronze);font-weight:700}
+
+.wa-float-btn{
+  width:54px;height:54px;background:#25D366;color:#fff !important;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(37,211,102,.3);text-decoration:none;
+  transition:all .6s ease;opacity:0;visibility:hidden;
+  transform:translateY(20px) scale(.8);position:relative;
+}
+.wa-float-btn.visible{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.wa-float-btn:hover{transform:scale(1.1) translateY(-3px)}
+.wa-float-btn svg{display:block}
+
+.wa-badge{
+  position:absolute;top:-1px;right:-1px;background:#ff3b30;color:#fff;font-size:9px;line-height:1;
+  width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-weight:700;border:1.5px solid #fff;opacity:0;transform:scale(0);transition:all .4s ease;
+}
+.wa-badge.show{opacity:1;transform:scale(1)}
+
+.wa-close{position:absolute;top:10px;right:10px;background:none;border:none;color:#999;cursor:pointer;padding:5px;transition:color .3s;display:flex;align-items:center;justify-content:center}
+.wa-close:hover{color:#666}
+
+/* Classes utilitárias (PageSpeed fix — sem inline style no JS) */
+.wa-typing.is-hidden{display:none !important}
+.wa-message-text.is-visible{display:block !important;opacity:0;transition:opacity 500ms ease}
+.wa-message-text.is-visible.is-in{opacity:1}
+
+@media (max-width:480px){
+  .wa-premium-container{bottom:16px;right:16px}
+  .wa-bubble{width:260px;bottom:72px}
+}
 
 /* =====================================================================
    ANIMAÇÕES / REVEAL

@@ -271,31 +271,89 @@
     }
 
     /* ---------------------------------------------------------------
-       6. WhatsApp — balão de mensagem premium (typing + glassmorphism)
+       6. WHATSAPP PREMIUM — Balão flutuante (AG5 V4)
+          t=0s   → usuário chega em #servicos (3ª seção) → botão aparece
+          t=25s  → balão sobe (typing 2.5s → mensagem)
+          t=40s  → balão some (15s visível)
+          Compliance CRO: sem badge de notificação
     --------------------------------------------------------------- */
-    var waBubble = document.getElementById('waBubble');
-    if (waBubble) {
-      var waTyping = document.getElementById('waTyping');
-      var waMsg = document.getElementById('waMsg');
-      var waClose = document.getElementById('waBubbleClose');
-      var waBtn = document.getElementById('waMainBtn');
-      var waDismissed = false;
+    (function initWaPremium() {
+      var MODO_COMPLIANCE = true; // odonto (CRO) = nicho rigoroso → SEM badge
 
-      setTimeout(function () {
-        if (waDismissed) return;
-        waBubble.classList.add('show');
-        // simula digitação por ~2,4s antes de revelar a mensagem
-        setTimeout(function () {
-          if (waDismissed) return;
-          if (waTyping) waTyping.style.display = 'none';
-          if (waMsg) waMsg.style.display = 'block';
-        }, 2400);
-      }, 5000);
+      var bubble        = document.getElementById('wa-message-bubble');
+      var typing        = document.getElementById('wa-typing');
+      var realMessage   = document.getElementById('wa-real-message');
+      var badge         = document.getElementById('wa-notification');
+      var closeBtn      = document.getElementById('wa-close-btn');
+      var mainBtn       = document.getElementById('wa-main-btn');
+      var targetSection = document.getElementById('servicos');
 
-      function waHide() { waBubble.classList.remove('show'); waDismissed = true; }
-      if (waClose) waClose.addEventListener('click', function (e) { e.preventDefault(); waHide(); });
-      if (waBtn) waBtn.addEventListener('click', waHide);
-    }
+      if (!bubble || !typing || !realMessage || !closeBtn || !mainBtn || !targetSection) return;
+
+      var DELAY_BALAO            = 25000;
+      var DURATION_TYPING        = 2500;
+      var DURATION_BALAO_VISIVEL = 15000;
+      var DELAY_BADGE_APOS_SUMIR = 5000;
+
+      var triggered = false;
+      var autoHideTimer = null;
+      var badgeTimer = null;
+      var userClosed = false;
+
+      var waObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !triggered) {
+            triggered = true;
+
+            mainBtn.classList.add('visible');
+
+            setTimeout(function () {
+              if (userClosed) return;
+              bubble.classList.add('show');
+
+              setTimeout(function () {
+                if (userClosed) return;
+                typing.classList.add('is-hidden');
+                realMessage.classList.add('is-visible');
+                requestAnimationFrame(function () { realMessage.classList.add('is-in'); });
+              }, DURATION_TYPING);
+
+              autoHideTimer = setTimeout(function () {
+                if (userClosed) return;
+                bubble.classList.remove('show');
+
+                if (!MODO_COMPLIANCE && badge) {
+                  badgeTimer = setTimeout(function () {
+                    if (userClosed) return;
+                    badge.classList.add('show');
+                  }, DELAY_BADGE_APOS_SUMIR);
+                }
+              }, DURATION_BALAO_VISIVEL);
+            }, DELAY_BALAO);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      waObserver.observe(targetSection);
+
+      closeBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        userClosed = true;
+        bubble.classList.remove('show');
+        if (autoHideTimer) clearTimeout(autoHideTimer);
+        if (badgeTimer) clearTimeout(badgeTimer);
+        if (!MODO_COMPLIANCE && badge) {
+          setTimeout(function () { badge.classList.add('show'); }, DELAY_BADGE_APOS_SUMIR);
+        }
+      });
+
+      mainBtn.addEventListener('click', function () {
+        bubble.classList.remove('show');
+        if (badge) badge.classList.remove('show');
+        if (autoHideTimer) clearTimeout(autoHideTimer);
+        if (badgeTimer) clearTimeout(badgeTimer);
+      });
+    })();
 
     /* ---------------------------------------------------------------
        7. VÍDEO Tecnologia — botão play/pause
