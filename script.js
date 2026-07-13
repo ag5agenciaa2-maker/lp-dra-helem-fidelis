@@ -67,9 +67,15 @@
     var drawerOverlay = document.getElementById('drawerOverlay');
     var drawerClose = document.getElementById('drawerClose');
 
+    var navRaf = false;
     function onScroll() {
-      if (window.scrollY > 40) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
+      if (navRaf) return;
+      navRaf = true;
+      requestAnimationFrame(function () {
+        navRaf = false;
+        if (window.scrollY > 40) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
+      });
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
@@ -382,7 +388,7 @@
         var openVModal = function () {
           vmodal.classList.add('open');
           vmodal.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
+          document.body.classList.add('no-scroll');
           if (techVideo.pause) techVideo.pause();
           if (vmodalVideo) {
             var pp = vmodalVideo.play();
@@ -393,7 +399,7 @@
           if (!vmodal.classList.contains('open')) return;
           vmodal.classList.remove('open');
           vmodal.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
+          document.body.classList.remove('no-scroll');
           if (vmodalVideo) vmodalVideo.pause();
           if (techVideo.play) { var pr = techVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
         };
@@ -445,7 +451,7 @@
         var openHeroModal = function () {
           heroModal.classList.add('open');
           heroModal.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
+          document.body.classList.add('no-scroll');
           if (heroVideo.pause) heroVideo.pause();
           if (heroModalVideo) {
             var hp = heroModalVideo.play();
@@ -456,7 +462,7 @@
           if (!heroModal.classList.contains('open')) return;
           heroModal.classList.remove('open');
           heroModal.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
+          document.body.classList.remove('no-scroll');
           if (heroModalVideo) heroModalVideo.pause();
           if (heroVideo.play) { var hr = heroVideo.play(); if (hr && hr.catch) hr.catch(function () {}); }
         };

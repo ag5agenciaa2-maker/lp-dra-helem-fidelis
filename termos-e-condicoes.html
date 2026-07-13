@@ -10,9 +10,12 @@
 <link rel="icon" href="Assets/favicon-dra-helem-fidelis.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" href="style.css" as="style">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="cookie-banner.css">
+<link rel="preload" href="cookie-banner.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="cookie-banner.css"></noscript>
 <style>
   .legal{max-width:900px;margin:0 auto;padding:140px 28px 90px}
   .legal__tag{font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--bronze)}
@@ -34,10 +37,10 @@
 <body>
 
 <!-- ============ NAVBAR ============ -->
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="Navegação principal">
   <div class="nav__inner">
     <a href="/" class="nav__logo">
-      <img src="Assets/logo-dra-helem-fidelis-mobile.webp" alt="Dra Helem Fidélis">
+      <img src="Assets/logo-dra-helem-fidelis-mobile.webp" alt="Dra Helem Fidélis" width="200" height="200">
       <span class="nav__logo-text">Helem Fidélis<br><small>Odontologia · Reabilitação Oral</small></span>
     </a>
     <div class="nav__right">
@@ -48,7 +51,7 @@
         <a href="/#depoimentos" class="nav__link">Depoimentos</a>
         <a href="/#contato" class="nav__link">Contato</a>
       </div>
-      <a href="https://wa.me/5521979937234?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" class="nav__cta">Agendar consulta</a>
+      <a href="https://wa.me/5521979937234?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer" class="nav__cta">Agendar consulta</a>
       <button class="nav__burger" id="burger" aria-label="Abrir menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -89,7 +92,7 @@
     <p>
       É proibida a reprodução, cópia, distribuição ou uso comercial de qualquer material sem
       autorização prévia e por escrito. O desenvolvimento do site foi realizado pela
-      <a href="https://www.ag5agencia.com.br" target="_blank" rel="noopener">AG5 Agência</a>.
+      <a href="https://www.ag5agencia.com.br" target="_blank" rel="noopener noreferrer">AG5 Agência</a>.
     </p>
   </section>
 
@@ -147,7 +150,7 @@
     <h2>7. Contato</h2>
     <p>Em caso de dúvidas sobre estes Termos, fale conosco:</p>
     <ul>
-      <li><strong>WhatsApp:</strong> <a href="https://wa.me/5521979937234?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20privacidade." target="_blank" rel="noopener">(21) 97993-7234</a></li>
+      <li><strong>WhatsApp:</strong> <a href="https://wa.me/5521979937234?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20privacidade." target="_blank" rel="noopener noreferrer">(21) 97993-7234</a></li>
       <li><strong>Endereço:</strong> Estr. Santa Eugênia, 273 — Sala 106, Paciência, Rio de Janeiro — RJ, 23585-430</li>
       <li><strong>Responsável técnica:</strong> Dra. Helem Fidélis — CRO RJ 056447</li>
     </ul>
@@ -161,15 +164,15 @@
     <div class="footer__grid">
       <div class="footer__brand">
         <a href="/" class="footer__brand-logo">
-          <img src="Assets/favicon-dra-helem-fidelis.webp" alt="HF">
+          <img src="Assets/favicon-dra-helem-fidelis.webp" alt="HF" width="192" height="192" loading="lazy">
           <span>Dra Helem Fidélis<br><small>Odontologia Estética e Reabilitadora</small></span>
         </a>
         <p>Reabilitação oral e estética dental com acolhimento humanizado e tecnologia digital, em Paciência, Rio de Janeiro.</p>
         <div class="social">
-          <a href="https://www.instagram.com/drahelemfidelis/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-          <a href="https://www.youtube.com/channel/UCHiLj3LN12TyYaXumt3AdVA" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
-          <a href="https://www.facebook.com/people/DraHelem-Fid%C3%A9lis-Reabilita%C3%A7%C3%A3o-Oral/61561709851458/" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
-          <a href="https://www.tiktok.com/@dra.helem.fidelis" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
+          <a href="https://www.instagram.com/drahelemfidelis/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">IG</a>
+          <a href="https://www.youtube.com/channel/UCHiLj3LN12TyYaXumt3AdVA" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
+          <a href="https://www.facebook.com/people/DraHelem-Fid%C3%A9lis-Reabilita%C3%A7%C3%A3o-Oral/61561709851458/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">FB</a>
+          <a href="https://www.tiktok.com/@dra.helem.fidelis" target="_blank" rel="noopener noreferrer" aria-label="TikTok">TT</a>
         </div>
       </div>
       <div>
@@ -197,7 +200,7 @@
         <div class="footer__col-links footer__contact">
           <a href="https://share.google/PjEDpDoQ3tR13irXj" target="_blank" rel="noopener noreferrer"><span class="ico" aria-hidden="true">⌂</span> Dra Helem Fidélis Odontologia</a>
           <a href="https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUyCwgAEEUYChg5GKABMgYIARBFGD0yBggCEEUYPdIBCTE3MzEyajBqN6gCCLACAfEF7HBSvei3HUrxBexwUr3otx1K&um=1&ie=UTF-8&fb=1&gl=br&sa=X&geocode=KRsSC4GJ5ZsAMXbGdVE-Ldn1&daddr=Estr.+Santa+Eug%C3%AAnia,+273+-+Sala+106+-+Paci%C3%AAncia,+Rio+de+Janeiro+-+RJ,+23585-430" target="_blank" rel="noopener noreferrer"><span class="ico" aria-hidden="true">⌖</span> Estr. Santa Eugênia, 273 — Sala 106<br>Paciência, RJ</a>
-          <a href="https://wa.me/5521979937234?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener"><span class="ico" aria-hidden="true">✆</span> (21) 97993-7234 · WhatsApp</a>
+          <a href="https://wa.me/5521979937234?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer"><span class="ico" aria-hidden="true">✆</span> (21) 97993-7234 · WhatsApp</a>
           <small>CNPJ 40.751.100/0001-74 · CRO RJ 056447</small>
         </div>
       </div>
@@ -220,7 +223,7 @@
           <a href="/politica-de-privacidade">Política de Privacidade</a>
         </div>
       </div>
-      <span class="footer-credits-right">Desenvolvido por <a href="https://www.ag5agencia.com.br" target="_blank" rel="noopener">AG5 Agência</a></span>
+      <span class="footer-credits-right">Desenvolvido por <a href="https://www.ag5agencia.com.br" target="_blank" rel="noopener noreferrer">AG5 Agência</a></span>
     </div>
   </div>
 </footer>
@@ -240,21 +243,21 @@
 <aside class="drawer" id="drawer" aria-label="Menu de navegação" aria-hidden="true">
   <div class="drawer__head">
     <a href="/" class="drawer__logo" data-close>
-      <img src="Assets/logo-dra-helem-fidelis-mobile.webp" alt="Dra Helem Fidélis">
+      <img src="Assets/logo-dra-helem-fidelis-mobile.webp" alt="Dra Helem Fidélis" width="200" height="200">
       <span class="drawer__logo-text">Helem Fidélis<br><small>Odontologia · Reabilitação Oral</small></span>
     </a>
     <button class="drawer__close" id="drawerClose" aria-label="Fechar menu">
       <span></span><span></span>
     </button>
   </div>
-  <nav class="drawer__links">
+  <nav class="drawer__links" aria-label="Menu mobile">
     <a href="/#sobre" data-close>Sobre</a>
     <a href="/#servicos" data-close>Serviços</a>
     <a href="/#tecnologia" data-close>Tecnologia</a>
     <a href="/#depoimentos" data-close>Depoimentos</a>
     <a href="/#contato" data-close>Contato</a>
   </nav>
-  <a href="https://wa.me/5521979937234?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="drawer__cta" data-close>Agendar pelo WhatsApp</a>
+  <a href="https://wa.me/5521979937234?text=Ol%C3%A1%2C%20vim%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer" class="drawer__cta" data-close>Agendar pelo WhatsApp</a>
 </aside>
 
 <!-- ============ COOKIE BANNER (LGPD) ============ -->
