@@ -26,4 +26,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://www.drahelemfidelis.ag5agencia.site/sitemap.xml
+Sitemap: https://drahelemfidelis.ag5agencia.site/sitemap.xml
